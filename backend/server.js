@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 
 const connectDB = require('./config/db')
 
-const usersRoutes = require('../nodeserver/routes/users')
+const usersRoutes = require('./routes/users')
 
 
 dotenv.config({ path: './config/config.env' })
