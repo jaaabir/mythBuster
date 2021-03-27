@@ -52,9 +52,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/user", usersRoutes)
+app.use("/api/auth", usersRoutes)
 
-const PORT = process.env.PORT || 3000
+const PORT = 4000
 
 
 app.listen(PORT, () => {
