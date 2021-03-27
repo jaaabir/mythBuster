@@ -1,4 +1,5 @@
-import { useState, lazy, Suspense} from "react";
+import { useState, lazy, Suspense }  from "react";
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { News } from "./components/quizPage";
 import { Home } from "./components/home";
