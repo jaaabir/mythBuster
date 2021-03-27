@@ -2,69 +2,120 @@ import { useState, useEffect } from "react";
 import style from "./style";
 import stylesheet from "react-jss";
 import ThemeBar from "../themebar";
-import { blue} from '../../contants'
+import { blue } from '../../contants'
+import { Button } from "@material-ui/core";
+
 
 const Quiz = ({ isAuthenticated, classes }) => {
-  const axios = require("axios");
-  const [claims, setClaims] = useState([]);
-  const [num, setNum] = useState(0);
-   const [bgColor, setBgColor] = useState(blue)
-   const {  container, noMargin} = classes
+    const accessKey = "AIzaSyBqbXZZHYtsnKpalrbMCV4dCjCYtU07Y0I";
+    const size = "100";
+    const url = `https://factchecktools.googleapis.com/v1alpha1/claims:search?languageCode=en&pageSize=${size}&query=covid&key=${accessKey}`;
 
-  const accessKey = "AIzaSyBqbXZZHYtsnKpalrbMCV4dCjCYtU07Y0I";
-  const size = "100";
+    const axios = require("axios");
+    const [claims, setClaims] = useState([]);
+    const random = () => Math.floor(Math.random() * (parseInt(size) - 0 + 1) + 0);
+    const [bgColor, setBgColor] = useState(blue)
+    const { container, noMargin } = classes
+    const [num, setNum] = useState(random());
+    const [prevNum, setPrevNum] = useState(10);
+    const [question, setQuestion] = useState("");
+    const [answer, setAnswer] = useState("");
+    const [result, setResult] = useState(null);
 
-  // const url = `https://newsapi.org/v2/everything?q=${search}&from=${date}&apiKey=${accessKey}`;
-  const url = `https://factchecktools.googleapis.com/v1alpha1/claims:search?languageCode=en&pageSize=${size}&query=covid&key=${accessKey}`;
+  
+    const getAns = (textualRating) => {
+        const ans = textualRating.toLowerCase();
+        const isTrue = ans.includes("true");
 
-  const base = {
-    height: "100vh",
-    backgroundImage: `linear-gradient(to right, ${bgColor})`,
-  };
+        return isTrue ? "True" : "False";
+    };
 
-  useEffect(() => {
-    axios
-      .get(url)
-      .then((res) => {
-        const claims = res.data.claims;
-        setClaims(claims);
-        console.log("resp.data--", res.data.claims);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
-  return (
-    <div style={base} className="quiz">
-      <div style={{ position: "relative" }}>
-        <ThemeBar selectedColor={setBgColor} />
-      </div>
-      {claims.length ? (
-        <div>
-          <div className={container}>
-            <p className={noMargin}>
-              title : {JSON.stringify(claims[num].text)}
-            </p>
-            <p className={noMargin}>
-              RESULT:{" "}
-              {JSON.stringify(claims[num]?.claimReview[0].textualRating)}
-            </p>
-            <p className={noMargin}>
-              Description : {JSON.stringify(claims[num]?.claimReview[0].title)}
-            </p>
-          </div>
+    const base = {
+        height: "100vh",
+        backgroundImage: `linear-gradient(to right, ${bgColor})`,
+    };
 
-          <div className="action">
-            <button onClick={() => setNum((prevNum) => prevNum + 1)}>
-              {" "}
-              next{" "}
+    const checkAnswer = (e) => {
+        if (result === null) {
+            e.target.name === answer ? setResult("correct") : setResult("wrong");
+        }
+    };
+
+    const nextQuestion = () => {
+        setResult(null);
+        setPrevNum(num);
+        let rand = random();
+
+        while (rand === prevNum) {
+            rand = random();
+        }
+
+        setNum(rand);
+        setQuestion(claims[num].text);
+    };
+
+    useEffect(async() => {
+        await  axios
+            .get(url)
+            .then((res) => {
+                const claims = res.data.claims;
+                setClaims(claims);
+                setQuestion(claims[num].text);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
+
+    useEffect(() => {
+        if (claims[num]) {
+            const ans = getAns(claims[num]?.claimReview[0].textualRating);
+            setAnswer(ans);
+        }
+    }, [question]);
+
+
+    return (
+        <div style={base} className="quiz">
+            <div style={{ position: "relative" }}>
+                <ThemeBar selectedColor={setBgColor} />
+            </div>
+            {claims.length ? (
+                <div>
+                    <div className={container}>
+                        <p className={noMargin}>
+                            {question}
+                        </p>
+
+                    </div>
+
+                    <div className="action">
+                        <button id="True" name="True" onClick={checkAnswer}>
+                            true
             </button>
-          </div>
+                        <button id="False" name="False" onClick={checkAnswer}>
+                            false
+            </button>
+                        <Button name="next" onClick={nextQuestion}>
+                            {" "}
+              next{" "}
+                        </Button>
+                    </div>
+                    <div className="result">
+                        {result === "correct" ? (
+                            <div className="text">yes you are right</div>
+                        ) : null}
+
+                        {result === "wrong" ? (
+                            <div className="text">nope you are wrong</div>
+                        ) : null}
+                    </div>
+                </div>
+            ) : null}
         </div>
-      ) : null}
-    </div>
-  );
+    );
 };
 
 export default stylesheet(style)(Quiz);
