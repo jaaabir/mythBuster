@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import style from './style';
 import stylesheet from 'react-jss';
 import ThemeBar from "../themebar";
+import { blue} from '../../contants'
 
  const Quiz = ({ isAuthenticated , classes}) => {
 
   const axios = require('axios');
   const [claims, setClaims] = useState([]);
   const [num, setNum] = useState(0);
-   const [bgColor, setBgColor] = useState('')
+   const [bgColor, setBgColor] = useState(blue)
    const {  container, noMargin} = classes
 
   const accessKey = "AIzaSyBqbXZZHYtsnKpalrbMCV4dCjCYtU07Y0I";

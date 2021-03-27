@@ -11,6 +11,9 @@ const ThemeBar = ({ selectedColor }) => {
         padding: '10px',
         position: 'absolute',
         right: 0,
+        backdropFilter:'blur(2em)',
+        backgroundColor: 'rgba(255, 255, 255, .5)',
+        borderRadius: '10px'
 
     }
     return (
