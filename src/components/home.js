@@ -13,11 +13,11 @@ export const Home = ({ setAuthenticated }) => {
   };
 
   return (
-    <>
+    <div>
       <div className="action" style={flexCOl}>
         <Link to={news}>play anonymous</Link>
         <Link to={signup}>sign in</Link>
       </div>
-    </>
+    </div>
   );
 };
