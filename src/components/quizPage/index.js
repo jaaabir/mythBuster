@@ -19,14 +19,13 @@ const Quiz = ({ isAuthenticated, classes }) => {
     const [claims, setClaims] = useState([]);
     const random = () => Math.floor(Math.random() * (parseInt(size) - 0 + 1) + 0);
     const [bgColor, setBgColor] = useState('')
-    const { container, wrapper, noMargin, btnStyle } = classes
+    const { container, wrapper, qsnContainer, btnStyle} = classes
     const [num, setNum] = useState(random());
     const [prevNum, setPrevNum] = useState(10);
     const [question, setQuestion] = useState("");
     const [answer, setAnswer] = useState("");
     const [result, setResult] = useState(null);
-    const {  gradient } = style
-
+    const { gradient, btnContainer } = style
   
     const getAns = (textualRating) => {
         const ans = textualRating.toLowerCase();
@@ -58,7 +57,9 @@ const Quiz = ({ isAuthenticated, classes }) => {
         }
 
         setNum(rand);
+
         setQuestion(claims[num]?.text);
+
     };
 
     useEffect(async() => {
@@ -100,22 +101,23 @@ const Quiz = ({ isAuthenticated, classes }) => {
             {claims.length ? (
                 <div className={wrapper} >
                     <div className={container}>
-                        <p className={noMargin}>
+                        <p className={qsnContainer}>
                             {question}
                         </p>
-                    </div>
-
-                    <div className="action">
-                        <button id="True" name="True" onClick={checkAnswer} className={btnStyle}>
-                            true
-                        </button>
-                        <button id="False" name="False" onClick={checkAnswer} className={btnStyle}>
-                            false
-                        </button>
-                        <Button name="next" onClick={nextQuestion}>
-                            {" "}
-                            next{" "}
-                        </Button>
+                    
+                        <div css={btnContainer}>
+                         
+                            <button id="True" name="True" onClick={checkAnswer} className={btnStyle}>
+                                true
+                            </button>
+                            <button id="False" name="False" onClick={checkAnswer} className={btnStyle}>
+                                false
+                            </button>
+                            <Button name="next" onClick={nextQuestion}>
+                                {" "}
+                                next{" "}
+                            </Button>
+                        </div>
                     </div>
                     <div className="result">
                         {result === "correct" ? (
