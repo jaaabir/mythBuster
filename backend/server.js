@@ -16,12 +16,13 @@ connectDB()
 
 const app = express();
 
+
 app.use(cors())
 
 
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/backend/nodeserver/images", express.static('images'))
 
 // app.use("/images", express.static(path.join("nodeserver/images")));
@@ -52,9 +53,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/user", usersRoutes)
+app.use("/api/auth", usersRoutes)
 
-const PORT = process.env.PORT || 3000
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to bezkoder application." });
+});
+
+const PORT = 4000
 
 
 app.listen(PORT, () => {
