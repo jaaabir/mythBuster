@@ -18,14 +18,14 @@ const Quiz = ({ isAuthenticated, classes }) => {
     const [claims, setClaims] = useState([]);
     const random = () => Math.floor(Math.random() * (parseInt(size) - 0 + 1) + 0);
     const [bgColor, setBgColor] = useState(red);
-    const { container, wrapper, qsnContainer, btnStyle } = classes;
+    const { container, wrapper, qsnContainer, btnStyle,  } = classes;
     const [num, setNum] = useState(random());
     const [prevNum, setPrevNum] = useState(10);
     const [question, setQuestion] = useState("");
     const [answer, setAnswer] = useState("");
     const [result, setResult] = useState(null);
     const [score, setScore] = useState(0);
-    const { gradient, btnContainer, themeBar, scoreStyle} = style;
+  const { gradient, btnContainer, themeBar, scoreStyle, icon} = style;
     const [reason, setReason] = useState('')
 
     const getAns = (textualRating) => {
@@ -95,7 +95,7 @@ const Quiz = ({ isAuthenticated, classes }) => {
 
 
     const bgStyle = css`
-            animation: ${gradient} 7s ease infinite;
+            animation: ${gradient} 9s ease infinite;
             background-size: 400% 400%;
             // background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-image: linear-gradient(-45deg, ${bgColor});
@@ -105,6 +105,7 @@ const Quiz = ({ isAuthenticated, classes }) => {
     const questionStyle = {
         fontSize: "1rem",
         letterSpacing: "1.5px",
+        textAlign: 'center'
     };
 
 
@@ -148,7 +149,7 @@ const Quiz = ({ isAuthenticated, classes }) => {
                     </div>
                     <div className="result">
                         {result === "correct" ? (
-                            <div style={{ width: '200px', height: '100px' }}>
+                        <div css={icon}>
                                 <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
                                     <circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
                                     <path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
@@ -160,7 +161,7 @@ const Quiz = ({ isAuthenticated, classes }) => {
 
                         {result === "wrong" ? (
                             <div>
-                                <div style={{ width: '200px', height: '00px', }}>
+                            <div css={icon}>
                                     <img src={wrong} style={{ width: '100%' }} />
                                     {/* <h4>nope you are wrong</h4> */}
 

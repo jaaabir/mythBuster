@@ -116,6 +116,13 @@ export default{
       }
 
     
+    `,
+    icon: css`
+    width: 200px; 
+    height: 100px; 
+     @media (max-width: 450px) {
+          width: 100px; 
+     }
     `
 
   

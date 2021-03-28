@@ -8,14 +8,14 @@ import { Link } from "react-router-dom";
 
 export const Navbar = ({ isAuthenticated }) => {
   const navbar = {
-    backgroundColor: "snow",
+    // backgroundColor: "snow",
   };
   const navStyle = {
     display: "flex",
     justifyContent: "space-between",
   };
   const logoStyle = {
-    // color: "white",
+    color: "white",
     letterSpacing: "1.5px",
     fontSize: "22px",
     textDecoration: "none",
