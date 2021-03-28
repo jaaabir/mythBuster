@@ -8,19 +8,26 @@ import { Link } from "react-router-dom";
 
 export const Navbar = ({ isAuthenticated }) => {
   const navbar = {
-    backgroundColor: "snow",
+    // backgroundColor: "snow",
   };
   const navStyle = {
     display: "flex",
     justifyContent: "space-between",
   };
   const logoStyle = {
-    // color: "white",
+    color: "white",
     letterSpacing: "1.5px",
     fontSize: "22px",
     textDecoration: "none",
     textTransform: "uppercase",
   };
+
+  const subheading ={
+    color: "white",
+    letterSpacing: "1.5px", fontSize: "16px", textDecoration: "none",
+    textTransform: "capitalize",
+    marginRught: '10px'
+  }
   return (
     <AppBar position="static" style={navbar}>
       <Toolbar style={navStyle}>
@@ -31,12 +38,21 @@ export const Navbar = ({ isAuthenticated }) => {
             </Typography>
           </Link>
         </div>
-        <div>
+        <div style={{
+          display: 'flex',alignItems: 'center'}}>
+          <Link to="/leaderboard" style={{ textDecoration: 'none' }}>
+            <Typography variant="h6" style={subheading}>
+              Leaderboard
+            </Typography>
+          </Link>
+
           <Link to={isAuthenticated ? "/quiz" : "/login"}>
             <IconButton>
               <AccountCircleIcon fontSize="large" />
             </IconButton>
           </Link>
+
+         
         </div>
       </Toolbar>
     </AppBar>

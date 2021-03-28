@@ -1,41 +1,50 @@
 import { css, keyframes } from "@emotion/core";
 import { purple } from "@material-ui/core/colors";
 
-export default {
-  base: {
-    height: "100vh",
-    backgroundImage: "linear-gradient(to right, #4facfe 0%, #00f2fe 100%)",
-  },
+export default{
 
-  qsnContainer: {
-    margin: 0,
-    display: "flex",
-    flex: 1,
-  },
+    base : {
+        height:'100vh',
+        backgroundImage: 'linear-gradient(to right, #4facfe 0%, #00f2fe 100%)' ,
+    },
 
-  container: {
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    borderRadius: "6px",
-    width: "100%",
-    padding: "20px",
-    // height: '100px',
-    marginTop: "10%",
-    minHeight: "200px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-  },
+    qsnContainer:{
+        margin:0,
+        display: 'flex',
+        flex: 1
+    },
 
-  wrapper: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    alignSelf: "center",
-    height: "50%",
-    justifyContent: "space- around",
-    margin: "auto",
-    width: "50%",
-  },
+    container:{
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        borderRadius: '6px',
+        width: '100%',
+        padding: '20px',
+        // height: '100px',
+        marginTop: '10%',
+        minHeight: '200px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        '@media(max-width: 450px)': {
+            height: '100%'
+        }
+
+    },
+
+    wrapper:{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        alignSelf: 'center',
+        height: '50%',
+        justifyContent: 'space-around',
+        margin: 'auto',
+        width:'50%',
+         '@media(max-width: 450px)': {
+             height: '70%'
+        }
+      },
+
   btnStyle: {
     minWidth: "100px",
     padding: "10px",
@@ -67,10 +76,54 @@ export default {
                             }
 `,
 
-  btnContainer: css`
-    display: flex;
-    justify-content: space-between;
-    width: 40%;
-    margin: auto;
-  `,
-};
+    btnContainer: css`
+                display: flex;
+                justify-content: space-between;
+                width: 40%;
+                margin: auto;
+                @media (max-width: 450px) {
+                     display: block;
+                    text-align: center;
+                }
+               
+    `,
+    themeBar: css`
+     @media (max-width: 450px) {
+        display: none;
+        
+      }
+
+    `,
+    scoreStyle: css `
+      position: absolute;
+        right: 5px;
+        top: 100px;
+        border: 2px solid white;
+        border-radius: 20px;
+        width: 90px;
+        height: 90px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+
+        @media (max-width: 450px) {
+            top: 85%;
+            left:10px;
+            right: 0;
+            //  margin: auto; 
+              bottom: 10px;
+        
+      }
+
+    
+    `,
+    icon: css`
+    width: 200px; 
+    height: 100px; 
+     @media (max-width: 450px) {
+          width: 100px; 
+     }
+    `
+
+  
+}

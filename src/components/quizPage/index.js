@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import style from "./style";
 import stylesheet from "react-jss";
 import ThemeBar from "../themebar";
@@ -8,15 +8,20 @@ import { red } from "../../contants";
 import { Button } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import wrong from "../../assets/icons/wrong.png";
-import { useStore } from "../../hooks/useStore";
+import { Navbar } from "../../components/navbar";
+import { consumer } from "../../context/consumer";
 import UserService from "../../services/user.service";
 
+const setLocalStorage = (key, value) =>
+  window.localStorage.setItem(key, JSON.stringify(value));
 const getLocalStorage = (key) => JSON.parse(window.localStorage.getItem(key));
 
-const Quiz = ({ classes }) => {
+const Quiz = ({ isAuthenticated, classes, dataContext }) => {
+  const { orderEntries, setReturnOrderEntries } = dataContext;
   const accessKey = "AIzaSyBqbXZZHYtsnKpalrbMCV4dCjCYtU07Y0I";
   const size = "100";
   const url = `https://factchecktools.googleapis.com/v1alpha1/claims:search?languageCode=en&pageSize=${size}&query=covid&key=${accessKey}`;
+  const API_URL = "http://localhost:4000";
 
   const axios = require("axios");
   const [claims, setClaims] = useState([]);
@@ -29,9 +34,8 @@ const Quiz = ({ classes }) => {
   const [answer, setAnswer] = useState("");
   const [result, setResult] = useState(null);
   const [score, setScore] = useState(0);
-  const { gradient, btnContainer } = style;
+  const { gradient, btnContainer, themeBar, scoreStyle, icon } = style;
   const [reason, setReason] = useState("");
-  // const [username, setUsername] = useState("");
 
   const getAns = (textualRating) => {
     const ans = textualRating.toLowerCase();
@@ -48,12 +52,10 @@ const Quiz = ({ classes }) => {
   const checkAnswer = (e) => {
     if (result === null) {
       if (e.target.name === answer) {
-        // setScore((prevScore) => prevScore + 10);
-        setScore(score + 10);
+        setScore((prevScore) => prevScore + 10);
         setResult("correct");
       } else {
-        // setScore((prevScore) => prevScore - 5);
-        setScore(score - 5);
+        setScore((prevScore) => prevScore - 5);
         setResult("wrong");
       }
     }
@@ -74,13 +76,25 @@ const Quiz = ({ classes }) => {
     // setReason(claims[num]?.claimReview[0].title)
   };
 
-  const getItems = () => {
-    axios
+  const getItems = async () => {
+    await axios
       .get(url)
       .then((res) => {
         const claims = res.data.claims;
         setClaims(claims);
         setQuestion(claims[num]?.text);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getLeaderBoard = async () => {
+    await axios
+      .get(`${API_URL}/api/leaderboard/`)
+      .then((res) => {
+        setReturnOrderEntries(res.data);
+        console.log("resp--", orderEntries);
       })
       .catch((error) => {
         console.log(error);
@@ -114,6 +128,7 @@ const Quiz = ({ classes }) => {
 
   useEffect(() => {
     getItems();
+    getLeaderBoard();
   }, []);
 
   useEffect(() => {
@@ -136,36 +151,24 @@ const Quiz = ({ classes }) => {
   }, [question]);
 
   const bgStyle = css`
-    animation: ${gradient} 7s ease infinite;
+    animation: ${gradient} 9s ease infinite;
     background-size: 400% 400%;
     // background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-image: linear-gradient(-45deg, ${bgColor});
   `;
 
   const questionStyle = {
-    fontSize: "20px",
+    fontSize: "1rem",
     letterSpacing: "1.5px",
-  };
-
-  const scoreStyle = {
-    position: "absolute",
-    right: "5px",
-    top: "100px",
-    border: "2px solid white",
-    borderRadius: "20px",
-    width: "90px",
-    height: "90px",
-    display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
+    textAlign: "center",
   };
 
   return (
     <div css={[bgStyle, base]}>
-      <div className="score" style={scoreStyle}>
+      <div css={scoreStyle}>
         <h1>{score}</h1>
       </div>
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative" }} css={themeBar}>
         <ThemeBar selectedColor={setBgColor} />
       </div>
       {claims.length ? (
@@ -200,7 +203,7 @@ const Quiz = ({ classes }) => {
           </div>
           <div className="result">
             {result === "correct" ? (
-              <div style={{ width: "200px", height: "100px" }}>
+              <div css={icon}>
                 <svg
                   className="checkmark"
                   xmlns="http://www.w3.org/2000/svg"
@@ -224,7 +227,7 @@ const Quiz = ({ classes }) => {
 
             {result === "wrong" ? (
               <div>
-                <div style={{ width: "200px", height: "00px" }}>
+                <div css={icon}>
                   <img src={wrong} style={{ width: "100%" }} />
                   {/* <h4>nope you are wrong</h4> */}
                 </div>
@@ -246,4 +249,4 @@ const Quiz = ({ classes }) => {
   );
 };
 
-export default stylesheet(style)(Quiz);
+export default stylesheet(style)(consumer(Quiz));

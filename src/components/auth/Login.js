@@ -92,8 +92,13 @@ const Login = (props) => {
     margin-top: 10px;
   `;
 
-  // width: '100%', backgroundColor: '#30409E
-
+  const formStyle = css`
+   width: 17%;
+   @media (max-width: 450px) {
+      width: 60%;
+   }
+  
+  `
   const center = {
     display: "flex",
     flexDirection: "column",
@@ -111,7 +116,7 @@ const Login = (props) => {
             style={imgStyle}
           />
 
-          <Form onSubmit={handleLogin} ref={form}>
+          <Form onSubmit={handleLogin} ref={form} css={formStyle}>
             <div className="form-group">
               <label htmlFor="username">Username</label>
               <Input
