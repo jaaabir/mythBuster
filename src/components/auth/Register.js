@@ -10,6 +10,16 @@ import { Link } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import { Card, CardContent } from "@material-ui/core";
 
+const buttonStyle = css`
+    width: 100%;
+    background-color: #30409e;
+    color: white;
+    border: 0;
+    padding: 8px 15px;
+    border-radius: 3px;
+    margin-top: 10px;
+  `;
+
 const required = (value) => {
   if (!value) {
     return (
@@ -50,6 +60,7 @@ const vpassword = (value) => {
   }
 };
 
+
 const Register = (props) => {
   const form = useRef();
   const checkBtn = useRef();
@@ -74,6 +85,19 @@ const Register = (props) => {
     const password = e.target.value;
     setPassword(password);
   };
+
+  const navigateToHome = () => {
+    props.history.push("/");
+    window.location.reload();
+  }
+  
+  const showLoginButton = () => {
+    return (
+      <button css={buttonStyle} onClick={navigateToHome}>
+          Login
+      </button>
+    )
+  }
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -199,6 +223,7 @@ const Register = (props) => {
                   role="alert"
                 >
                   {message}
+                  {successful ? showLoginButton() : null}
                 </div>
               </div>
             )}
