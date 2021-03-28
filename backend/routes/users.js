@@ -10,7 +10,7 @@ const User = require('../models/User');
 //Login 
 router.post("/login", (req, res, next) => {
   let fetchedUser;
-  User.findOne({ email: req.body.email })
+  User.findOne({ username: req.body.username })
     .then(user => {
       if (!user) {
         return res.status(401).json({
@@ -27,7 +27,7 @@ router.post("/login", (req, res, next) => {
         });
       }
       const token = jwt.sign(
-        { email: fetchedUser.email, userId: fetchedUser._id },
+        { username: fetchedUser.username, userId: fetchedUser._id },
         "secret_this_should_be_longer",
         { expiresIn: "1h" }
       );

@@ -1,10 +1,14 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import { Link } from "react-router-dom";
 
 import AuthService from "../../services/auth.service";
+import { Card, CardContent } from "@material-ui/core";
 
 const required = (value) => {
   if (!value) {
@@ -100,74 +104,109 @@ const Register = (props) => {
     }
   };
 
+  const imgStyle = {
+    marginLeft: "15px",
+    borderRadius: "50%",
+    width: "150px",
+    height: "150px",
+  };
+
+  const buttonStyle = {
+    width: "100%",
+    backgroundColor: "#30409e",
+    color: "white",
+    border: "0",
+    padding: "8px 15px",
+    borderRadius: "3px",
+    marginTop: "10px",
+  };
+
+  // width: '100%', backgroundColor: '#30409E
+
+  const center = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  };
+
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
+    <Card className="col-md-12">
+      <CardContent style={center}>
+        <div className="card card-container">
+          <img
+            style={imgStyle}
+            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+            alt="profile-img"
+            className="profile-img-card"
+          />
 
-        <Form onSubmit={handleRegister} ref={form}>
-          {!successful && (
-            <div>
+          <Form onSubmit={handleRegister} ref={form}>
+            {!successful && (
+              <div>
+                <div className="form-group">
+                  <label htmlFor="username">Username</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="username"
+                    value={username}
+                    onChange={onChangeUsername}
+                    validations={[required, vusername]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="email"
+                    value={email}
+                    onChange={onChangeEmail}
+                    validations={[required, validEmail]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <Input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    value={password}
+                    onChange={onChangePassword}
+                    validations={[required, vpassword]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <button
+                    className="btn btn-primary btn-block"
+                    style={buttonStyle}
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {message && (
               <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="username"
-                  value={username}
-                  onChange={onChangeUsername}
-                  validations={[required, vusername]}
-                />
+                <div
+                  className={
+                    successful ? "alert alert-success" : "alert alert-danger"
+                  }
+                  role="alert"
+                >
+                  {message}
+                </div>
               </div>
-
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="email"
-                  value={email}
-                  onChange={onChangeEmail}
-                  validations={[required, validEmail]}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <Input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  value={password}
-                  onChange={onChangePassword}
-                  validations={[required, vpassword]}
-                />
-              </div>
-
-              <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
-              </div>
-            </div>
-          )}
-
-          {message && (
-            <div className="form-group">
-              <div
-                className={ successful ? "alert alert-success" : "alert alert-danger" }
-                role="alert"
-              >
-                {message}
-              </div>
-            </div>
-          )}
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
-        </Form>
-      </div>
-    </div>
+            )}
+            <CheckButton style={{ display: "none" }} ref={checkBtn} />
+          </Form>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

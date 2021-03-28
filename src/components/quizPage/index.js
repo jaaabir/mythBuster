@@ -7,7 +7,7 @@ import ThemeBar from "../themebar";
 import { red } from "../../contants";
 import { Button } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import wrong from '../../assets/icons/wrong.png'
+import wrong from "../../assets/icons/wrong.png";
 
 const Quiz = ({ isAuthenticated, classes }) => {
     const accessKey = "AIzaSyBqbXZZHYtsnKpalrbMCV4dCjCYtU07Y0I";
@@ -169,18 +169,19 @@ const Quiz = ({ isAuthenticated, classes }) => {
                             </div>
                         ) : null}
                     </div>
-                </div>
-            ) : (
-                    <div className={wrapper} style={{ justifyContent: "center" }}>
-                        <CircularProgress
-                            size="3rem"
-                            variant="indeterminate"
-                            color="inherit"
-                        />
-                    </div>
-                )}
+                
         </div>
-    );
+      ) : (
+        <div className={wrapper} style={{ justifyContent: "center" }}>
+          <CircularProgress
+            size="3rem"
+            variant="indeterminate"
+            color="inherit"
+          />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default stylesheet(style)(Quiz);

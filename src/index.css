@@ -16,7 +16,6 @@ code {
   font-family: "Poppins", sans-serif;
 }
 
-
 .checkmark__circle {
   stroke-dasharray: 166;
   stroke-dashoffset: 166;
@@ -37,9 +36,10 @@ code {
   stroke-miterlimit: 10;
   margin: 10% auto;
   box-shadow: inset 0px 0px 0px #7ac142;
-  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+  animation: fill 0.4s ease-in-out 0.4s forwards,
+    scale 0.3s ease-in-out 0.9s both;
   background-color: #7ac142;
-  border: 1px solid white
+  border: 1px solid white;
 }
 
 .checkmark__check {
@@ -55,7 +55,8 @@ code {
   }
 }
 @keyframes scale {
-  0%, 100% {
+  0%,
+  100% {
     transform: none;
   }
   50% {
@@ -66,5 +67,4 @@ code {
   100% {
     box-shadow: inset 0px 0px 0px 30px #7ac142;
   }
-
 }

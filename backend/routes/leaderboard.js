@@ -25,7 +25,7 @@ router.post("/leaderboard",  (req, res, next) => {
 //Getting Score
 router.get("/leaderboard", async  (req, res, next) => {
     try {
-        let result = await LeaderBoard.find({}).sort({ score: -1 }).limit(3).toArray();
+        let result = await LeaderBoard.find({}).sort({ score: -1 })
         res.send(result);
     } catch (e) {
         res.status(500).send({ message: e.message });

@@ -1,4 +1,3 @@
-
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import React, { useState, useRef } from "react";
@@ -51,7 +50,7 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
         () => {
-          props.history.push("/profile");
+          props.history.push("/quiz");
           window.location.reload();
         },
         (error) => {
@@ -77,16 +76,15 @@ const Login = (props) => {
     height: "150px",
   };
 
-
   const buttonStyle = css`
     width: 100%;
-    background-color: #30409E;
+    background-color: #30409e;
     color: white;
     border: 0;
     padding: 8px 15px;
     border-radius: 3px;
     margin-top: 10px;
-  `
+  `;
 
   const formStyle = css`
    width: 17%;
@@ -102,7 +100,7 @@ const Login = (props) => {
   };
 
   return (
-    <Card className="col-md-12" style={{ height: '90vh', }}>
+    <Card className="col-md-12" style={{ height: "90vh" }}>
       <CardContent>
         <div className="card card-container" style={center}>
           <img
@@ -122,7 +120,7 @@ const Login = (props) => {
                 value={username}
                 onChange={onChangeUsername}
                 validations={[required]}
-                style={{ width: '95%' }}
+                style={{ width: "95%" }}
               />
 
               <label htmlFor="password">Password</label>
@@ -133,9 +131,8 @@ const Login = (props) => {
                 value={password}
                 onChange={onChangePassword}
                 validations={[required]}
-                style={{ width: '95%' }}
+                style={{ width: "95%" }}
               />
-
 
               <button css={buttonStyle} disabled={loading}>
                 {loading && (
@@ -144,9 +141,14 @@ const Login = (props) => {
                 <span>LOGIN</span>
               </button>
 
-              <div style={{ width: '100%', marginTop: '10px' }}>
+              <div style={{ width: "100%", marginTop: "10px" }}>
                 <Link to="/register">
-                  <Button variant="contained" color="primary" disabled={loading} style={{ width: '100%' }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    disabled={loading}
+                    style={{ width: "100%" }}
+                  >
                     SIGN UP
                   </Button>
                 </Link>
@@ -159,14 +161,18 @@ const Login = (props) => {
               </div>
                */}
 
-              <div style={{ width: '100%', marginTop: '10px' }}>
+              <div style={{ width: "100%", marginTop: "10px" }}>
                 <Link to="/quiz">
-                  <Button variant="contained" color="primary" disabled={loading} style={{ width: '100%' }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    disabled={loading}
+                    style={{ width: "100%" }}
+                  >
                     Join as guest
                   </Button>
                 </Link>
               </div>
-
             </div>
 
             {message && (

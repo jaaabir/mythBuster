@@ -32,7 +32,7 @@ const ThemeBar = ({ selectedColor }) => {
             <div
               key={index}
               style={{
-                backgroundImage: `linear-gradient(to right, ${color})`,
+                backgroundImage: `linear-gradient(to bottom right, ${color})`,
                 animation: "gradient 5s ease infinite",
                 height: "45px",
                 borderRadius: "50%",

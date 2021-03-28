@@ -1,5 +1,5 @@
-import { css, keyframes } from '@emotion/core'
-import { purple } from '@material-ui/core/colors'
+import { css, keyframes } from "@emotion/core";
+import { purple } from "@material-ui/core/colors";
 
 export default{
 
@@ -37,38 +37,34 @@ export default{
         alignItems: 'center',
         alignSelf: 'center',
         height: '50%',
-        justifyContent: 'space- around',
+        justifyContent: 'space-around',
         margin: 'auto',
         width:'50%',
          '@media(max-width: 450px)': {
              height: '70%'
         }
+      },
 
-
-  },
-  btnStyle:{
-        minWidth: '100px',
-    padding: '10px',
-    borderRadius: '5px',
-    color:'#FFF',
-    fontSize: '16px',
+  btnStyle: {
+    minWidth: "100px",
+    padding: "10px",
+    borderRadius: "5px",
+    color: "#FFF",
+    fontSize: "16px",
     fontWeight: 500,
-    textTransform: 'uppercase',
-    background:'transparent',
-    border: '1px solid white',
-      '&:hover': {
-          transition: '0.3s',
-          backgroundImage: 'linear-gradient(to bottom right,#2631f5 0,#6e75ff 100%)',
-          boxShadow: '0 5px 10px 0 rgb(39 49 245 / 20%), 0 10px 30px 0 rgb(219 82 253 / 25%)',
-      }
-
-
-
+    textTransform: "uppercase",
+    background: "transparent",
+    border: "1px solid white",
+    "&:hover": {
+      transition: "0.3s",
+      backgroundImage:
+        "linear-gradient(to bottom right,#2631f5 0,#6e75ff 100%)",
+      boxShadow:
+        "0 5px 10px 0 rgb(39 49 245 / 20%), 0 10px 30px 0 rgb(219 82 253 / 25%)",
+    },
   },
 
-
-
-    gradient : keyframes`
+  gradient: keyframes`
                         0% {
                                 background-position: 0% 50%;
                             }
