@@ -24,7 +24,10 @@ export default{
         minHeight: '200px',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        '@media(max-width: 450px)': {
+            height: '100%'
+        }
 
     },
 
@@ -36,7 +39,10 @@ export default{
         height: '50%',
         justifyContent: 'space- around',
         margin: 'auto',
-        width:'50%'
+        width:'50%',
+         '@media(max-width: 450px)': {
+             height: '70%'
+        }
 
 
   },
@@ -79,6 +85,41 @@ export default{
                 justify-content: space-between;
                 width: 40%;
                 margin: auto;
+                @media (max-width: 450px) {
+                     display: block;
+                    text-align: center;
+                }
+               
+    `,
+    themeBar: css`
+     @media (max-width: 450px) {
+        display: none;
+        
+      }
+
+    `,
+    scoreStyle: css `
+      position: absolute;
+        right: 5px;
+        top: 100px;
+        border: 2px solid white;
+        border-radius: 20px;
+        width: 90px;
+        height: 90px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+
+        @media (max-width: 450px) {
+            top: 85%;
+            left:10px;
+            right: 0;
+            //  margin: auto; 
+              bottom: 10px;
+        
+      }
+
+    
     `
 
   

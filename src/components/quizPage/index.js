@@ -25,7 +25,7 @@ const Quiz = ({ isAuthenticated, classes }) => {
     const [answer, setAnswer] = useState("");
     const [result, setResult] = useState(null);
     const [score, setScore] = useState(0);
-    const { gradient, btnContainer } = style;
+    const { gradient, btnContainer, themeBar, scoreStyle} = style;
     const [reason, setReason] = useState('')
 
     const getAns = (textualRating) => {
@@ -103,29 +103,17 @@ const Quiz = ({ isAuthenticated, classes }) => {
     `;
 
     const questionStyle = {
-        fontSize: "20px",
+        fontSize: "1rem",
         letterSpacing: "1.5px",
     };
 
-    const scoreStyle = {
-        position: "absolute",
-        right: "5px",
-        top: "100px",
-        border: "2px solid white",
-        borderRadius: "20px",
-        width: "90px",
-        height: "90px",
-        display: "flex",
-        justifyContent: "space-evenly",
-        alignItems: "center",
-    };
 
     return (
         <div css={[bgStyle, base]}>
-            <div className="score" style={scoreStyle}>
+            <div css={scoreStyle}>
                 <h1>{score}</h1>
             </div>
-            <div style={{ position: "relative" }}>
+            <div style={{ position: "relative" }} css={themeBar}>
                 <ThemeBar selectedColor={setBgColor} />
             </div>
             {claims.length ? (
@@ -143,7 +131,7 @@ const Quiz = ({ isAuthenticated, classes }) => {
                                 className={btnStyle}
                             >
                                 true
-              </button>
+                            </button>
                             <button
                                 id="False"
                                 name="False"
@@ -151,10 +139,10 @@ const Quiz = ({ isAuthenticated, classes }) => {
                                 className={btnStyle}
                             >
                                 false
-              </button>
+                            </button>
                             <Button name="next" onClick={nextQuestion}>
                                 {" "}
-                next{" "}
+                                    next{" "}
                             </Button>
                         </div>
                     </div>
