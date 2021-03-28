@@ -29,7 +29,7 @@ export const Navbar = ({ isAuthenticated }) => {
           </Link>
         </div>
         <div>
-          <Link to={isAuthenticated ? "/profile" : "/login"}>
+          <Link to={isAuthenticated ? "/quiz" : "/login"}>
             <IconButton>
               <AccountCircleIcon fontSize="large" />
             </IconButton>
