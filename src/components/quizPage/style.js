@@ -48,8 +48,6 @@ export default{
     fontSize: '16px',
     fontWeight: 500,
     textTransform: 'uppercase',
-    // backgroundImage: 'linear-gradient(to bottom right,#2631f5 0,#6e75ff 100%)',
-    // boxShadow: '0 5px 10px 0 rgb(39 49 245 / 20%), 0 10px 30px 0 rgb(219 82 253 / 25%)',
     background:'transparent',
     border: '1px solid white',
       '&:hover': {
@@ -66,13 +64,13 @@ export default{
 
     gradient : keyframes`
                         0% {
-                                background-position: 0% 50%,
+                                background-position: 0% 50%;
                             }
                             50% {
-                                background-position: 100% 50%,
+                                background-position: 100% 50%;
                             }
                             100% {
-                                background-position: 0% 50%,
+                                background-position: 0% 50%;
                             }
 `,
 
