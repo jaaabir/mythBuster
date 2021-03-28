@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 
 const router = express.Router()
 const User = require('../models/User');
-const checkAuth = require('../middleware/check-auth')
 
 //User
 
@@ -51,7 +50,8 @@ router.post("/signup", (req, res, next) => {
       const user = new User({
         username: req.body.username,
         email: req.body.email,
-        password: hash
+        password: hash,
+        score: 0,
       });
       user
         .save()

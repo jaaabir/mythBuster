@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db')
 
 const usersRoutes = require('./routes/users')
-
+const leaderboardRoutes = require('./routes/leaderboard')
 
 dotenv.config({ path: './config/config.env' })
 
@@ -54,6 +54,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/auth", usersRoutes)
+app.use("/api/", leaderboardRoutes)
 
 // simple route
 app.get("/", (req, res) => {
