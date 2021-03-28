@@ -1,6 +1,3 @@
-
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
 import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -9,7 +6,6 @@ import AuthService from "../../services/auth.service";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
 
 const required = (value) => {
   if (!value) {
@@ -77,19 +73,6 @@ const Login = (props) => {
     height: "150px",
   };
 
-
-  const buttonStyle = css`
-    width: 100%;
-    background-color: #30409E;
-    color: white;
-    border: 0;
-    padding: 8px 15px;
-    border-radius: 3px;
-    margin-top: 10px;
-  `
-
-  // width: '100%', backgroundColor: '#30409E
-
   const center = {
     display: "flex",
     flexDirection: "column",
@@ -97,7 +80,7 @@ const Login = (props) => {
   };
 
   return (
-    <Card className="col-md-12" style={{ height: '90vh',}}>
+    <Card className="col-md-12">
       <CardContent>
         <div className="card card-container" style={center}>
           <img
@@ -107,7 +90,7 @@ const Login = (props) => {
             style={imgStyle}
           />
 
-          <Form onSubmit={handleLogin} ref={form} style={{ width: '17%'}}>
+          <Form onSubmit={handleLogin} ref={form}>
             <div className="form-group">
               <label htmlFor="username">Username</label>
               <Input
@@ -117,9 +100,10 @@ const Login = (props) => {
                 value={username}
                 onChange={onChangeUsername}
                 validations={[required]}
-                style={{ width: '95%'}}
               />
-           
+            </div>
+
+            <div className="form-group">
               <label htmlFor="password">Password</label>
               <Input
                 type="password"
@@ -128,40 +112,16 @@ const Login = (props) => {
                 value={password}
                 onChange={onChangePassword}
                 validations={[required]}
-                style={{ width: '95%' }}
               />
+            </div>
 
-          
-              <button css={buttonStyle} disabled={loading}>
+            <div className="form-group">
+              <button className="btn btn-primary btn-block" disabled={loading}>
                 {loading && (
                   <span className="spinner-border spinner-border-sm"></span>
                 )}
-                <span>LOGIN</span>
+                <span>Login</span>
               </button>
-
-              <div style={{ width: '100%', marginTop: '10px' }}>
-                <Link to="/register">
-                  <Button variant="contained" color="primary" disabled={loading} style={{ width: '100%' }}>
-                   SIGN UP
-                  </Button>
-                </Link>
-              </div>
-
-              {/* <div style={{width: '100%', marginTop: '10px'}}>
-                <Button variant="contained" color="primary" disabled={loading} style={{ width :'100%'}}>
-                  Login
-                </Button>
-              </div>
-               */}
-
-              <div style={{ width: '100%', marginTop: '10px' }}>
-                <Link to="/quiz">
-                  <Button variant="contained" color="primary" disabled={loading} style={{ width: '100%' }}>
-                  Join as guest
-                  </Button>
-                </Link>
-              </div>
-
             </div>
 
             {message && (
