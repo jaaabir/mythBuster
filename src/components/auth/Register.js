@@ -176,6 +176,7 @@ const Register = (props) => {
                     value={username}
                     onChange={onChangeUsername}
                     validations={[required, vusername]}
+                    style={{ width: "95%" }}
                   />
                 </div>
 
@@ -188,6 +189,7 @@ const Register = (props) => {
                     value={email}
                     onChange={onChangeEmail}
                     validations={[required, validEmail]}
+                    style={{ width: "95%" }}
                   />
                 </div>
 
@@ -200,6 +202,7 @@ const Register = (props) => {
                     value={password}
                     onChange={onChangePassword}
                     validations={[required, vpassword]}
+                    style={{ width: "95%" }}
                   />
                 </div>
 

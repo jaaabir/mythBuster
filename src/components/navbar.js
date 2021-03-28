@@ -46,7 +46,7 @@ export const Navbar = ({ isAuthenticated }) => {
             </Typography>
           </Link>
 
-          <Link to={isAuthenticated ? "/quiz" : "/login"}>
+          <Link to={isAuthenticated ? "/quiz" : "/"}>
             <IconButton>
               <AccountCircleIcon fontSize="large" />
             </IconButton>
