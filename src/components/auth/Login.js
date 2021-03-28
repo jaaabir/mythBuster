@@ -9,6 +9,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+// import { useStore } from "../../hooks/useStore";
 
 const required = (value) => {
   if (!value) {
@@ -19,6 +20,9 @@ const required = (value) => {
     );
   }
 };
+
+const setLocalStorage = (key, value) =>
+  window.localStorage.setItem(key, JSON.stringify(value));
 
 const Login = (props) => {
   const form = useRef();
@@ -50,10 +54,12 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
         () => {
+          setLocalStorage("username", username);
           props.history.push("/quiz");
           window.location.reload();
         },
         (error) => {
+          setLocalStorage("username", "");
           const resMessage =
             (error.response &&
               error.response.data &&
