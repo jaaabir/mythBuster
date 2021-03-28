@@ -12,6 +12,6 @@ code {
     monospace;
 }
 
-.quiz {
-  transition: "all 0.3s ease";
+* {
+  font-family: "Poppins", sans-serif;
 }
