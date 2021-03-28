@@ -5,6 +5,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import AuthService from "./services/auth.service";
 import { Navbar } from "./components/navbar";
+import LeaderBoard from './components/leaderBoard'
 
 function App() {
   const [isAuthenticated, setAuthenticated] = useState(false);
@@ -21,8 +22,8 @@ function App() {
             <Route path="/" exact component={Login} />
               {/* <Home setAuthenticated={setAuthenticated} /> */}
             <Route exact path="/register" component={Register} />
-            <Route path="/quiz" component={Quiz}>
-            </Route>
+            <Route path="/quiz" component={Quiz} />
+            <Route path="/leaderboard" component={LeaderBoard} />
           </Switch>
         </Suspense>
       </Router>

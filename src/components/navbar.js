@@ -21,6 +21,13 @@ export const Navbar = ({ isAuthenticated }) => {
     textDecoration: "none",
     textTransform: "uppercase",
   };
+
+  const subheading ={
+    color: "white",
+    letterSpacing: "1.5px", fontSize: "16px", textDecoration: "none",
+    textTransform: "capitalize",
+    marginRught: '10px'
+  }
   return (
     <AppBar position="static" style={navbar}>
       <Toolbar style={navStyle}>
@@ -31,12 +38,21 @@ export const Navbar = ({ isAuthenticated }) => {
             </Typography>
           </Link>
         </div>
-        <div>
+        <div style={{
+          display: 'flex',alignItems: 'center'}}>
+          <Link to="/leaderboard" style={{ textDecoration: 'none' }}>
+            <Typography variant="h6" style={subheading}>
+              Leaderboard
+            </Typography>
+          </Link>
+
           <Link to={isAuthenticated ? "/quiz" : "/login"}>
             <IconButton>
               <AccountCircleIcon fontSize="large" />
             </IconButton>
           </Link>
+
+         
         </div>
       </Toolbar>
     </AppBar>
