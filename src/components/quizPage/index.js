@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import style from "./style";
 import stylesheet from "react-jss";
 import ThemeBar from "../themebar";
-import { blue } from "../../contants";
+import { red } from "../../contants";
 import { Button } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import wrong from "../../assets/icons/wrong.png";
@@ -17,7 +17,7 @@ const Quiz = ({ isAuthenticated, classes }) => {
   const axios = require("axios");
   const [claims, setClaims] = useState([]);
   const random = () => Math.floor(Math.random() * (parseInt(size) - 0 + 1) + 0);
-  const [bgColor, setBgColor] = useState("");
+  const [bgColor, setBgColor] = useState(red);
   const { container, wrapper, qsnContainer, btnStyle } = classes;
   const [num, setNum] = useState(random());
   const [prevNum, setPrevNum] = useState(10);
@@ -94,16 +94,10 @@ const Quiz = ({ isAuthenticated, classes }) => {
   }, [question]);
 
   const bgStyle = css`
-    animation: ${gradient} 10s ease infinite;
+    animation: ${gradient} 7s ease infinite;
     background-size: 400% 400%;
-    background-image: linear-gradient(
-      -45deg,
-      #ee7752,
-      #e73c7e,
-      #23a6d5,
-      #23d5ab
-    );
-    // background-image: linear-gradient(-45deg, ${bgColor})
+    // background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-image: linear-gradient(-45deg, ${bgColor});
   `;
 
   const questionStyle = {

@@ -13,7 +13,7 @@ import {
 } from "../../contants";
 
 const ThemeBar = ({ selectedColor }) => {
-  const themes = [lightPink, lightBlue, pink, blue, green, orange, red, grey];
+  const themes = [lightPink, lightBlue, pink, green, orange, red, grey];
 
   const container = {
     padding: "10px",
@@ -39,6 +39,7 @@ const ThemeBar = ({ selectedColor }) => {
                 border: "1px solid white",
                 margin: "10px 0px",
                 width: "45px",
+                cursor: 'pointer'
               }}
               onClick={() => selectedColor(color)}
             ></div>

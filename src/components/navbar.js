@@ -25,7 +25,7 @@ export const Navbar = ({ isAuthenticated }) => {
     <AppBar position="static" style={navbar}>
       <Toolbar style={navStyle}>
         <div className="logo">
-          <Link to="/">
+          <Link to="/" style={{ textDecoration:'none'}}>
             <Typography variant="h6" style={logoStyle}>
               Myth buster
             </Typography>
