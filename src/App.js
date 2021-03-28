@@ -7,22 +7,20 @@ import AuthService from "./services/auth.service";
 import { Navbar } from "./components/navbar";
 
 function App() {
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  // const [uanme, setUname, isAuthenticated, setIsAuthenticated] = useStore();
 
   const Quiz = lazy(() => import("./components/quizPage/"));
-
 
   return (
     <>
       <Router>
-        <Navbar isAuthenticated={isAuthenticated} />
+        <Navbar />
         <Suspense fallback={<div>Loading... </div>}>
           <Switch>
             <Route path="/" exact component={Login} />
-              {/* <Home setAuthenticated={setAuthenticated} /> */}
+            {/* <Home setAuthenticated={setAuthenticated} /> */}
             <Route exact path="/register" component={Register} />
-            <Route path="/quiz" component={Quiz}>
-            </Route>
+            <Route path="/quiz" component={Quiz}></Route>
           </Switch>
         </Suspense>
       </Router>

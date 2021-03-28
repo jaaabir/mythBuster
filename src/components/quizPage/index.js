@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import style from "./style";
 import stylesheet from "react-jss";
 import ThemeBar from "../themebar";
@@ -8,8 +8,12 @@ import { red } from "../../contants";
 import { Button } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import wrong from "../../assets/icons/wrong.png";
+import { useStore } from "../../hooks/useStore";
+import UserService from "../../services/user.service";
 
-const Quiz = ({ isAuthenticated, classes }) => {
+const getLocalStorage = (key) => JSON.parse(window.localStorage.getItem(key));
+
+const Quiz = ({ classes }) => {
   const accessKey = "AIzaSyBqbXZZHYtsnKpalrbMCV4dCjCYtU07Y0I";
   const size = "100";
   const url = `https://factchecktools.googleapis.com/v1alpha1/claims:search?languageCode=en&pageSize=${size}&query=covid&key=${accessKey}`;
@@ -27,6 +31,7 @@ const Quiz = ({ isAuthenticated, classes }) => {
   const [score, setScore] = useState(0);
   const { gradient, btnContainer } = style;
   const [reason, setReason] = useState("");
+  // const [username, setUsername] = useState("");
 
   const getAns = (textualRating) => {
     const ans = textualRating.toLowerCase();
@@ -43,10 +48,12 @@ const Quiz = ({ isAuthenticated, classes }) => {
   const checkAnswer = (e) => {
     if (result === null) {
       if (e.target.name === answer) {
-        setScore((prevScore) => prevScore + 10);
+        // setScore((prevScore) => prevScore + 10);
+        setScore(score + 10);
         setResult("correct");
       } else {
-        setScore((prevScore) => prevScore - 5);
+        // setScore((prevScore) => prevScore - 5);
+        setScore(score - 5);
         setResult("wrong");
       }
     }
@@ -67,8 +74,8 @@ const Quiz = ({ isAuthenticated, classes }) => {
     // setReason(claims[num]?.claimReview[0].title)
   };
 
-  const getItems = async () => {
-    await axios
+  const getItems = () => {
+    axios
       .get(url)
       .then((res) => {
         const claims = res.data.claims;
@@ -80,9 +87,44 @@ const Quiz = ({ isAuthenticated, classes }) => {
       });
   };
 
+  const getScore = async (username) => {
+    const leaderboard = await UserService.getLeaderBoard()
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // const username = getLocalStorage("username") || "";
+    // setUsername(uname);
+
+    if (username !== "") {
+      let sc;
+      leaderboard.map((users) => {
+        if (users.username === username) {
+          sc = users.score;
+        }
+      });
+
+      if (sc === undefined || sc === NaN) setScore(0);
+      else setScore(sc);
+    }
+  };
+
   useEffect(() => {
     getItems();
   }, []);
+
+  useEffect(() => {
+    const username = getLocalStorage("username") || "";
+    getScore(username);
+  }, []);
+
+  useEffect(() => {
+    const username = getLocalStorage("username") || "";
+    UserService.setNewScore(username, score);
+  }, [score]);
 
   useEffect(() => {
     if (claims[num]) {
