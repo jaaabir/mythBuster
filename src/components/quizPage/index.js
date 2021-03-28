@@ -17,7 +17,7 @@ const Quiz = ({ isAuthenticated, classes, dataContext }) => {
     const accessKey = "AIzaSyBqbXZZHYtsnKpalrbMCV4dCjCYtU07Y0I";
     const size = "100";
     const url = `https://factchecktools.googleapis.com/v1alpha1/claims:search?languageCode=en&pageSize=${size}&query=covid&key=${accessKey}`;
-    const API_URL = "http://localhost:4000/api/leaderboard/";
+    const API_URL = "http://localhost:4000";
     
     const axios = require("axios");
     const [claims, setClaims] = useState([]);
@@ -88,7 +88,7 @@ const Quiz = ({ isAuthenticated, classes, dataContext }) => {
   
     const getLeaderBoard = async () => {
         await axios
-            .get(API_URL)
+            .get(`${API_URL}/api/leaderboard/`)
             .then((res) => {
                 setReturnOrderEntries(res.data)
                 console.log("resp--",  orderEntries)
