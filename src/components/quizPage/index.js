@@ -8,12 +8,17 @@ import { red } from "../../contants";
 import { Button } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import wrong from "../../assets/icons/wrong.png";
+import { Navbar } from "../../components/navbar";
+import { consumer } from '../../context/consumer';
 
-const Quiz = ({ isAuthenticated, classes }) => {
+
+const Quiz = ({ isAuthenticated, classes, dataContext }) => {
+    const { orderEntries, setReturnOrderEntries} = dataContext
     const accessKey = "AIzaSyBqbXZZHYtsnKpalrbMCV4dCjCYtU07Y0I";
     const size = "100";
     const url = `https://factchecktools.googleapis.com/v1alpha1/claims:search?languageCode=en&pageSize=${size}&query=covid&key=${accessKey}`;
-
+    const API_URL = "http://localhost:4000/api/leaderboard/";
+    
     const axios = require("axios");
     const [claims, setClaims] = useState([]);
     const random = () => Math.floor(Math.random() * (parseInt(size) - 0 + 1) + 0);
@@ -80,9 +85,26 @@ const Quiz = ({ isAuthenticated, classes }) => {
             });
     };
 
+  
+    const getLeaderBoard = async () => {
+        await axios
+            .get(API_URL)
+            .then((res) => {
+                setReturnOrderEntries(res.data)
+                console.log("resp--",  orderEntries)
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     useEffect(() => {
         getItems();
+        getLeaderBoard();
     }, []);
+
+
 
     useEffect(() => {
         if (claims[num]) {
@@ -185,4 +207,4 @@ const Quiz = ({ isAuthenticated, classes }) => {
   );
 };
 
-export default stylesheet(style)(Quiz);
+export default stylesheet(style)(consumer(Quiz));

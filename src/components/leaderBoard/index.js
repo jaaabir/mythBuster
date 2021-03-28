@@ -11,25 +11,26 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import style from './style'
+import { consumer } from '../../context/consumer'
 import { red} from '../../contants'
 
 const columns = [
-    { id: 'career_name', label: 'Career', minWidth: 170 },
-    { id: 'category', label: 'Category', minWidth: 100 },
-    {
-        id: 'salary',
-        label: 'Salary',
-        minWidth: 170,
-        align: 'right',
-        format: value => value.toLocaleString('en-US')
-    },
-    {
-        id: 'popularity',
-        label: 'Popularity',
-        minWidth: 170,
-        align: 'right',
-        format: value => value.toLocaleString('en-US')
-    }
+    { id: 'username', label: 'Username', minWidth: 170, },
+    { id: 'score', label: 'Score', minWidth: 100 },
+    // {
+    //     id: 'salary',
+    //     label: 'Salary',
+    //     minWidth: 170,
+    //     align: 'right',
+    //     format: value => value.toLocaleString('en-US')
+    // },
+    // {
+    //     id: 'popularity',
+    //     label: 'Popularity',
+    //     minWidth: 170,
+    //     align: 'right',
+    //     format: value => value.toLocaleString('en-US')
+    // }
     
 ];
 
@@ -50,22 +51,21 @@ const useStyles = makeStyles({
 
     tableRow: {
         cursor: 'pointer'
-        // '&:hover': {
-        //   backgroundColor: '#1B1443 !important',
-        //   color: 'white !important'
-        // }
+        
     }
 
 });
 
 const LeaderBoard = props => {
-    const { careerData } = props;
+    const { careerData, dataContext} = props;
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [bgColor, setBgColor] = useState(red);
 
-
+    const { orderEntries } = dataContext
+    console.log("debugger--", orderEntries)
+    
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -104,9 +104,10 @@ const LeaderBoard = props => {
                     </TableHead>
 
                     <TableBody>
-                        {careerData && careerData.map(row => (
+                            {orderEntries && orderEntries.map(row => (
                             <TableRow hover role="checkbox" tabIndex={-1} key={row.code} className={classes.tableRow}>
                                 {columns.map(column => {
+                                    debugger
                                     const value = row[column.id];
                                     return (
                                         <TableCell key={column.id} align={column.align}>
@@ -134,4 +135,4 @@ const LeaderBoard = props => {
     );
 };
 
-export default LeaderBoard;
+export default consumer(LeaderBoard);
