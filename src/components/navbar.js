@@ -7,19 +7,22 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 
 export const Navbar = ({ isAuthenticated }) => {
+  const navbar = {
+    backgroundColor: "snow",
+  };
   const navStyle = {
     display: "flex",
     justifyContent: "space-between",
   };
   const logoStyle = {
-    color: "white",
+    // color: "white",
     letterSpacing: "1.5px",
     fontSize: "22px",
     textDecoration: "none",
     textTransform: "uppercase",
   };
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={navbar}>
       <Toolbar style={navStyle}>
         <div className="logo">
           <Link to="/">
